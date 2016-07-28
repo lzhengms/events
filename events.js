@@ -23,7 +23,8 @@ function EventEmitter() {
   this._events = this._events || {};
   this._maxListeners = this._maxListeners || undefined;
 }
-module.exports = EventEmitter;
+
+export default EventEmitter;
 
 // Backwards-compat with node 0.10.x
 EventEmitter.EventEmitter = EventEmitter;
@@ -98,6 +99,7 @@ EventEmitter.prototype.emit = function(type) {
 
   return true;
 };
+EventEmitter.prototype.trigger = EventEmitter.prototype.emit
 
 EventEmitter.prototype.addListener = function(type, listener) {
   var m;
@@ -171,7 +173,6 @@ EventEmitter.prototype.once = function(type, listener) {
 
   return this;
 };
-
 // emits a 'removeListener' event iff the listener was removed
 EventEmitter.prototype.removeListener = function(type, listener) {
   var list, position, length, i;
@@ -217,6 +218,7 @@ EventEmitter.prototype.removeListener = function(type, listener) {
 
   return this;
 };
+EventEmitter.prototype.off = EventEmitter.prototype.removeListener
 
 EventEmitter.prototype.removeAllListeners = function(type) {
   var key, listeners;
