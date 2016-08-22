@@ -19,7 +19,10 @@ var banner =
 rollup.rollup({
   entry: path.resolve(__dirname, '../events.js'),
   plugins: [
-    babel()
+    babel({
+       babelrc: false,
+       presets: ["es2015-rollup"]
+    })
   ]
 })
 .then(function (bundle) {

@@ -1,9 +1,15 @@
 /*!
- * es6-events v1.1.1
+ * es6-events v1.1.2
  * (c) 2016 lzhengms
  * Released under the MIT License.
  */
 'use strict';
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj;
+};
 
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -94,7 +100,9 @@ EventEmitter.prototype.emit = function (type) {
     args = Array.prototype.slice.call(arguments, 1);
     listeners = handler.slice();
     len = listeners.length;
-    for (i = 0; i < len; i++) listeners[i].apply(this, args);
+    for (i = 0; i < len; i++) {
+      listeners[i].apply(this, args);
+    }
   }
 
   return true;
@@ -229,7 +237,9 @@ EventEmitter.prototype.removeAllListeners = function (type) {
     this.removeListener(type, listeners);
   } else if (listeners) {
     // LIFO order
-    while (listeners.length) this.removeListener(type, listeners[listeners.length - 1]);
+    while (listeners.length) {
+      this.removeListener(type, listeners[listeners.length - 1]);
+    }
   }
   delete this._events[type];
 
@@ -264,7 +274,7 @@ function isNumber(arg) {
 }
 
 function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
+  return (typeof arg === 'undefined' ? 'undefined' : _typeof(arg)) === 'object' && arg !== null;
 }
 
 function isUndefined(arg) {
